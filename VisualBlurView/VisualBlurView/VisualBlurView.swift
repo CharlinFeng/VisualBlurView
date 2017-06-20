@@ -12,9 +12,9 @@ extension VisualBlurView {
 
     enum Style: Int {
     
-        case ExtraLight
-        case Light
-        case Dark
+        case extraLight
+        case light
+        case dark
     }
 
 }
@@ -26,7 +26,7 @@ class VisualBlurExtraLightView: VisualBlurView {
     
     override func viewprepare(){
         super.viewprepare()
-        style = .ExtraLight
+        style = .extraLight
     }
 }
 
@@ -39,7 +39,7 @@ class VisualBlurLightView: VisualBlurView {
     
     override func viewprepare(){
         super.viewprepare()
-        style = .Light
+        style = .light
     }
 }
 
@@ -52,7 +52,7 @@ class VisualBlurDarkView: VisualBlurView {
     
     override func viewprepare(){
         super.viewprepare()
-        style = .Dark
+        style = .dark
     }
 }
 
@@ -65,8 +65,8 @@ class VisualBlurView: UIView {
     
     required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder); viewprepare()}
     
-    private var vibrancyEffectBlurView: UIView!
-    private var blurView: UIView!
+    fileprivate var vibrancyEffectBlurView: UIView!
+    fileprivate var blurView: UIView!
     
     lazy var contentView: UIView  = {
     
@@ -98,7 +98,7 @@ extension VisualBlurView {
             if blurView == nil {
                 let visualEffect = UIBlurEffect(style: UIBlurEffectStyle(rawValue: self.style.rawValue)!)
                 let visualEffectView = UIVisualEffectView(effect: visualEffect)
-                let vibrancyEffect = UIVibrancyEffect(forBlurEffect: visualEffect)
+                let vibrancyEffect = UIVibrancyEffect(blurEffect: visualEffect)
                 vibrancyEffectBlurView = UIVisualEffectView(effect: vibrancyEffect)
                 visualEffectView.contentView.addSubview(vibrancyEffectBlurView)
                 vibrancyEffectBlurView.layoutView_ForBlurViewFrameWork()
@@ -109,14 +109,14 @@ extension VisualBlurView {
         }else {
             if blurView == nil {
                 let toolBar = UIToolbar()
-                toolBar.barStyle = style == .Dark ? .Black : .Default
+                toolBar.barStyle = style == .dark ? .black : .default
                 vibrancyEffectBlurView = toolBar
                 blurView = toolBar
                 addSubview(blurView)
                 blurView.layoutView_ForBlurViewFrameWork()
             }else {
                 let toolBar = blurView as! UIToolbar
-                toolBar.barStyle = style == Style.Dark ? UIBarStyle.Black : UIBarStyle.Default
+                toolBar.barStyle = style == Style.dark ? UIBarStyle.black : UIBarStyle.default
             }
         }
     }
@@ -128,8 +128,8 @@ extension UIView {
         if superview == nil {return}
         translatesAutoresizingMaskIntoConstraints = false
         let views = ["layoutView": self]
-        let c_V = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[layoutView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-        let c_H = NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[layoutView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        let c_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[layoutView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        let c_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[layoutView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         superview!.addConstraints(c_V); superview!.addConstraints(c_H)
     }
 }

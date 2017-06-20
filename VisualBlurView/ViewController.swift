@@ -21,7 +21,7 @@ extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let label = UILabel(frame: CGRectMake(0, 50, 320, 200))
+        let label = UILabel(frame: CGRect(x: 0, y: 50, width: 320, height: 200))
         label.text = "需要浪费大数据雷柏电动助力进入了哇"
         vbv.contentView.addSubview(label)
 
